@@ -1,9 +1,22 @@
 import { z } from "zod";
 
 export const productSchema = z.object({
-  name: z.string({ required_error: "Name is required" }).min(1, "Name is required"),
-  imageId: z.string({ required_error: "imageId is required" }).min(1, "imageId is required"),
-  description: z.string().optional(),
+  name: z.string({ required_error: "Name is required" }).min(1, "Name is required").max(200),
+  // imageId: z.string({ required_error: "imageId is required" }).min(1, "imageId is required"),
+  images: z.array(
+    z.object({
+      imageId: z.string({ required_error: "imageId is required" }).min(1, "imageId is required"),
+      order: z.number().int().nonnegative(),
+    })
+  ).nonempty()
+    .max(10)
+    .transform((arr => {
+      const sorted = [...arr].sort((a, b) => a.order - b.order);
+      const ordered = sorted.map((img, index) => ({...img, order: index + 1}))
+      return ordered;
+    }
+  )),
+  description: z.string().max(2000).optional(),
   visibility: z.enum(['public', 'private']).default('public').optional(),
   // price: z.coerce.number().int().optional(),
   price: z.coerce
@@ -17,7 +30,7 @@ export const productSchema = z.object({
   // price: z.union([z.number().positive(), z.nan()]).optional()
 });
 
-export const productSchemaNoImage = productSchema.omit({imageId: true});
+export const productSchemaNoImage = productSchema.omit({images: true});
 export const productSchemaOptional = productSchema.partial();
 export type TProductSchema = z.infer<typeof productSchema>;
 export type TProductSchemaNoImage = z.infer<typeof productSchemaNoImage>;
