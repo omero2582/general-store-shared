@@ -31,7 +31,6 @@ export const productSchema = z.object({
 });
 
 export const productSchemaNoImage = productSchema.omit({images: true});
-export const productSchemaOptional = productSchema.partial();
 
 export const changeUserLevelSchema = z.object({
   userLevel: z.enum(['user', 'admin'])
