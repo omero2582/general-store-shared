@@ -38,3 +38,8 @@ export const changeUserLevelSchema = z.object({
   userLevel: z.enum(['user', 'admin'])
 });
 export type TChangeUserLevelSchema = z.infer<typeof changeUserLevelSchema>;
+
+export const categorySchema = z.object({
+  name: z.string().max(40)
+});
+export type TCategorySchema = z.infer<typeof categorySchema>;
