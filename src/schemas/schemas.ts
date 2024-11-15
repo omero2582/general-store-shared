@@ -1,4 +1,12 @@
 import { z } from "zod";
+import mongoose from 'mongoose';
+
+// MongoID validation check:
+const ObjectIdSchema = z
+  .string()
+  .refine((val) => mongoose.Types.ObjectId.isValid(val), {
+    message: "Invalid ObjectId",
+  });
 
 export const productSchema = z.object({
   name: z.string({ required_error: "Name is required" }).min(1, "Name is required").max(200),
@@ -26,6 +34,10 @@ export const productSchema = z.object({
   .refine((val) => /^\d+(\.\d{1,2})?$/.test(val.toString()), {
     message: 'Price must have up to 2 decimal places',
   })
+  .optional(),
+  categories: z.array(
+    ObjectIdSchema
+  ).max(10)
   .optional()
   // price: z.union([z.number().positive(), z.nan()]).optional()
 });

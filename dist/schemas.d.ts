@@ -23,6 +23,7 @@ export declare const productSchema: z.ZodObject<{
     description: z.ZodOptional<z.ZodString>;
     visibility: z.ZodOptional<z.ZodDefault<z.ZodEnum<["public", "private"]>>>;
     price: z.ZodOptional<z.ZodEffects<z.ZodNumber, number, number>>;
+    categories: z.ZodOptional<z.ZodArray<z.ZodEffects<z.ZodString, string, string>, "many">>;
 }, "strip", z.ZodTypeAny, {
     name: string;
     images: {
@@ -32,6 +33,7 @@ export declare const productSchema: z.ZodObject<{
     visibility?: "private" | "public" | undefined;
     description?: string | undefined;
     price?: number | undefined;
+    categories?: string[] | undefined;
 }, {
     name: string;
     images: [{
@@ -44,6 +46,7 @@ export declare const productSchema: z.ZodObject<{
     visibility?: "private" | "public" | undefined;
     description?: string | undefined;
     price?: number | undefined;
+    categories?: string[] | undefined;
 }>;
 export declare const productSchemaNoImage: z.ZodObject<Omit<{
     name: z.ZodString;
@@ -69,16 +72,19 @@ export declare const productSchemaNoImage: z.ZodObject<Omit<{
     description: z.ZodOptional<z.ZodString>;
     visibility: z.ZodOptional<z.ZodDefault<z.ZodEnum<["public", "private"]>>>;
     price: z.ZodOptional<z.ZodEffects<z.ZodNumber, number, number>>;
+    categories: z.ZodOptional<z.ZodArray<z.ZodEffects<z.ZodString, string, string>, "many">>;
 }, "images">, "strip", z.ZodTypeAny, {
     name: string;
     visibility?: "private" | "public" | undefined;
     description?: string | undefined;
     price?: number | undefined;
+    categories?: string[] | undefined;
 }, {
     name: string;
     visibility?: "private" | "public" | undefined;
     description?: string | undefined;
     price?: number | undefined;
+    categories?: string[] | undefined;
 }>;
 export type TProductSchema = z.infer<typeof productSchema>;
 export type TProductSchemaNoImage = z.infer<typeof productSchemaNoImage>;
