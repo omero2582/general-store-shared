@@ -2,46 +2,46 @@ import { z } from "zod";
 export declare const productSchema: z.ZodObject<{
     name: z.ZodString;
     images: z.ZodEffects<z.ZodArray<z.ZodObject<{
-        imageId: z.ZodString;
+        publicId: z.ZodString;
         order: z.ZodNumber;
     }, "strip", z.ZodTypeAny, {
         order: number;
-        imageId: string;
+        publicId: string;
     }, {
         order: number;
-        imageId: string;
+        publicId: string;
     }>, "atleastone">, {
         order: number;
-        imageId: string;
+        publicId: string;
     }[], [{
         order: number;
-        imageId: string;
+        publicId: string;
     }, ...{
         order: number;
-        imageId: string;
+        publicId: string;
     }[]]>;
     description: z.ZodOptional<z.ZodString>;
     visibility: z.ZodOptional<z.ZodDefault<z.ZodEnum<["public", "private"]>>>;
     price: z.ZodOptional<z.ZodEffects<z.ZodNumber, number, number>>;
-    categories: z.ZodOptional<z.ZodArray<z.ZodEffects<z.ZodString, string, string>, "many">>;
+    categories: z.ZodDefault<z.ZodArray<z.ZodEffects<z.ZodString, string, string>, "many">>;
 }, "strip", z.ZodTypeAny, {
     name: string;
     images: {
         order: number;
-        imageId: string;
+        publicId: string;
     }[];
+    categories: string[];
     visibility?: "private" | "public" | undefined;
     description?: string | undefined;
     price?: number | undefined;
-    categories?: string[] | undefined;
 }, {
     name: string;
     images: [{
         order: number;
-        imageId: string;
+        publicId: string;
     }, ...{
         order: number;
-        imageId: string;
+        publicId: string;
     }[]];
     visibility?: "private" | "public" | undefined;
     description?: string | undefined;
@@ -51,34 +51,34 @@ export declare const productSchema: z.ZodObject<{
 export declare const productSchemaNoImage: z.ZodObject<Omit<{
     name: z.ZodString;
     images: z.ZodEffects<z.ZodArray<z.ZodObject<{
-        imageId: z.ZodString;
+        publicId: z.ZodString;
         order: z.ZodNumber;
     }, "strip", z.ZodTypeAny, {
         order: number;
-        imageId: string;
+        publicId: string;
     }, {
         order: number;
-        imageId: string;
+        publicId: string;
     }>, "atleastone">, {
         order: number;
-        imageId: string;
+        publicId: string;
     }[], [{
         order: number;
-        imageId: string;
+        publicId: string;
     }, ...{
         order: number;
-        imageId: string;
+        publicId: string;
     }[]]>;
     description: z.ZodOptional<z.ZodString>;
     visibility: z.ZodOptional<z.ZodDefault<z.ZodEnum<["public", "private"]>>>;
     price: z.ZodOptional<z.ZodEffects<z.ZodNumber, number, number>>;
-    categories: z.ZodOptional<z.ZodArray<z.ZodEffects<z.ZodString, string, string>, "many">>;
+    categories: z.ZodDefault<z.ZodArray<z.ZodEffects<z.ZodString, string, string>, "many">>;
 }, "images">, "strip", z.ZodTypeAny, {
     name: string;
+    categories: string[];
     visibility?: "private" | "public" | undefined;
     description?: string | undefined;
     price?: number | undefined;
-    categories?: string[] | undefined;
 }, {
     name: string;
     visibility?: "private" | "public" | undefined;

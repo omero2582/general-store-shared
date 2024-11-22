@@ -10,7 +10,7 @@ export const productSchema = z.object({
     name: z.string({ required_error: "Name is required" }).min(1, "Name is required").max(200),
     // imageId: z.string({ required_error: "imageId is required" }).min(1, "imageId is required"),
     images: z.array(z.object({
-        imageId: z.string({ required_error: "imageId is required" }).min(1, "imageId is required"),
+        publicId: z.string({ required_error: "publicId is required" }).min(1, "publicId is required"),
         order: z.number().int().nonnegative(),
     })).nonempty()
         .max(10)
@@ -31,7 +31,7 @@ export const productSchema = z.object({
     })
         .optional(),
     categories: z.array(ObjectIdSchema).max(10)
-        .optional()
+        .default([])
     // price: z.union([z.number().positive(), z.nan()]).optional()
 });
 export const productSchemaNoImage = productSchema.omit({ images: true });
